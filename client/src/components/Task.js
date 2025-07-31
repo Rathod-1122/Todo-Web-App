@@ -38,7 +38,7 @@ function Task() {
     if (value === 'Completed') {
       await axios.put(`/taskStatus/${taskId}`);
     } else if (value === 'Pending') {
-      await axios.put(`/completeTask/${taskId}`, { completedAt: null });
+      await axios.put(`/taskStatus/${taskId}`, { completedAt: null });
     }
     fetchTasks();
   };
