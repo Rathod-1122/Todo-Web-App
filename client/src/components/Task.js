@@ -15,21 +15,31 @@ function Task() {
   const addTask = async () => {
     const text = taskRef.current.value.trim();
     if (text) {
-      await axios.post('/addTask', { text });
-      taskRef.current.value = '';
-      fetchTasks();
-    }
-  };
-
+      let response = await axios.post('/addTask', { text });
+      if(response.data.status==='success')
+        alert(response.data.message)
+      else{
+        alert(response.data.message)
+        console.log('The error occured is :',response.data.error);
+        }
+        taskRef.current.value = '';
+        fetchTasks();
+    };
+  }
   const deleteTask = async (id) => {
-    await axios.delete(`/deleteTask/${id}`);
+    let response = await axios.delete(`/deleteTask/${id}`);
+    if(response.data.status==='success')
+        alert(response.data.message)
+    else{
+      alert(response.data.message)
+    }
     fetchTasks();
   };
 
   const editTask = async (id, oldText) => {
     const newText = prompt('Edit task:', oldText);
     if (newText !== null && newText.trim()) {
-      await axios.put(`/updateTask/${id}`, { text: newText.trim() });
+      await axios.put(`/updateTask/${id}`, { text: newText.trim()});
       fetchTasks();
     }
   };
@@ -46,7 +56,7 @@ function Task() {
   useEffect(() => {
     fetchTasks();
   }, []);
-
+  
   return (
     <div className="app-container">
       <h1 className="header">Todo List</h1>

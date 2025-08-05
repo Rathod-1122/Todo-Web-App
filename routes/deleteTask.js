@@ -3,8 +3,14 @@ const router = express.Router();
 const Task = require('../models/Task');
 
 router.delete('/deleteTask/:id', async (req, res) => {
-  await Task.findByIdAndDelete(req.params.id);
-  res.sendStatus(204);
+
+  try{
+    await Task.findByIdAndDelete(req.params.id);
+    res.json({status:"success",message:'Task deleted successfully'})
+  }catch(err){
+    res.json({status:"failed",message:'Unable to delete the task',error:err})
+  }
+  
 });
 
 module.exports = router;
