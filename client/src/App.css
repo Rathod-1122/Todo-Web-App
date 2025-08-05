@@ -119,3 +119,18 @@ body {
   padding: 5px 8px;
   border-radius: 4px;
 }
+
+@media only screen and (max-width:400px){
+
+  body{
+    font-size: 12px;
+  }
+  .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  }
+  .task-content{
+    font-size: 8px;
+  }
+}
